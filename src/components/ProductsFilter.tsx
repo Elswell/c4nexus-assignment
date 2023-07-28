@@ -1,9 +1,10 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useCallback } from "react";
 import { ProductData } from "../data/ProductData";
 import { useSearchParams } from "react-router-dom";
 import { cn } from "../utils/cn";
 import { Typography } from "./Typography";
 import { Slider } from "./ui/slider";
+import { debounce } from "../utils/debounce";
 
 interface ProductsFilterProps {}
 
@@ -29,15 +30,12 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
 
   // Handle Price Params
 
-  const handlePriceFilter = ({
-    min,
-    max,
-  }: {
-    min: number[];
-    max: number[];
-  }) => {
-    setSelectedPrice({ min: min, max: max });
-  };
+  const handlePriceFilter = useCallback(
+    debounce(({ min, max }: { min: number[]; max: number[] }) => {
+      setSelectedPrice({ min: min, max: max });
+    }, 10), // Adjust the delay as needed
+    []
+  );
 
   // Apply Params
 
@@ -45,7 +43,7 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
   const alphabeticalSortParam = searchParams.get("alphabeticalSort");
 
   useEffect(() => {
-    const paramsToUpdate: {
+    const filterParams: {
       color?: string;
       priceSort?: string;
       alphabeticalSort?: string;
@@ -57,18 +55,18 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
     };
 
     if (selectedColors.length > 0) {
-      paramsToUpdate.color = selectedColors.join(",");
+      filterParams.color = selectedColors.join(",");
     }
 
     if (priceSortParam) {
-      paramsToUpdate.priceSort = priceSortParam;
+      filterParams.priceSort = priceSortParam;
     }
     if (alphabeticalSortParam) {
-      paramsToUpdate.alphabeticalSort = alphabeticalSortParam;
+      filterParams.alphabeticalSort = alphabeticalSortParam;
     }
 
     setSearchParams({
-      ...paramsToUpdate,
+      ...filterParams,
     });
   }, [
     selectedPrice,
@@ -111,7 +109,6 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
           max={100}
           step={1}
           value={selectedPrice.min}
-          onChange={(e) => console.log(e)}
           onValueChange={(e) => handlePriceFilter({ min: e, max: [100] })}
         />
         <span className="flex justify-between w-full">

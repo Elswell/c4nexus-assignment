@@ -1,48 +1,66 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Typography } from "./Typography";
 import { useSearchParams } from "react-router-dom";
 
 interface ProductsSortProps {}
 
 const ProductsSort: FC<ProductsSortProps> = () => {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [priceSort, setPriceSort] = useState<string>(
+    searchParams.get("priceSort") ?? ""
+  );
+  const [alphabeticalSort, setAlphabeticalSort] = useState<string>(
+    searchParams.get("alphabeticalSort") ?? ""
+  );
 
-  const handlePriceSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    event.preventDefault();
-    const value = event.target.value;
+  useEffect(() => {
+    if (!priceSort) return;
+
+    setAlphabeticalSort("");
+
     setSearchParams((prevParams) => ({
       ...prevParams,
-      priceSort: value,
+      priceSort: priceSort,
     }));
-  };
+  }, [priceSort, setSearchParams]);
 
-  const handleAlphabeticalSort = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    event.preventDefault();
-    const value = event.target.value;
+  useEffect(() => {
+    if (!alphabeticalSort) return;
+
+    setPriceSort("");
+
     setSearchParams((prevParams) => ({
       ...prevParams,
-      alphabeticalSort: value,
+      alphabeticalSort: alphabeticalSort,
     }));
-  };
+  }, [alphabeticalSort, setSearchParams]);
 
   return (
     <div className="flex w-full justify-end">
       <div className="w-3/4 flex space-x-6">
         <Typography variant="p">Sort By</Typography>
         <select
-          onChange={handlePriceSort}
+          onChange={(e) => setPriceSort(e.target.value)}
+          value={priceSort}
+          defaultValue=""
           className="px-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
         >
+          <option value="" disabled>
+            Select Price Sort
+          </option>
           <option value="asc">Price Low to High</option>
           <option value="desc">Price High to Low</option>
         </select>
         <select
-          onChange={handleAlphabeticalSort}
+          onChange={(e) => setAlphabeticalSort(e.target.value)}
+          value={alphabeticalSort}
+          defaultValue=""
           className="px-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
         >
+          <option value="" disabled>
+            Select Alphabetical Sort
+          </option>
           <option value="asc">A-Z</option>
           <option value="desc">Z-A</option>
         </select>
