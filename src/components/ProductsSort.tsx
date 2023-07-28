@@ -38,7 +38,7 @@ const ProductsSort: FC<ProductsSortProps> = () => {
 
   return (
     <div className="flex w-full justify-end">
-      <div className="w-3/4 flex space-x-6">
+      <div className="w-full md:w-3/4 flex space-x-6">
         <Typography variant="p">Sort By</Typography>
         <select
           onChange={(e) => setPriceSort(e.target.value)}

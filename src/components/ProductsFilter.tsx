@@ -78,7 +78,7 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
   ]);
 
   return (
-    <div className="w-1/4 space-y-16">
+    <div className="w-1/4 space-y-16 hidden md:block">
       <div className="flex flex-col space-y-2 items-center justify-center">
         <Typography variant="h4">Colors</Typography>
         {ProductData.map((data, i) => {

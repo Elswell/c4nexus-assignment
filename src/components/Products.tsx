@@ -8,21 +8,25 @@ import { useSearchParams } from "react-router-dom";
 interface ProductsProps {}
 
 const ProductCard: FC<{ product: IProductData }> = ({ product }) => {
-  const { description, name, price, ratings, discounted_price } = product;
+  const { description, name, price, ratings, discounted_price, color } =
+    product;
 
   return (
-    <div className="w-full p-2 flex flex-col h-[550px]">
-      <div className="h-[350px] bg-slate-400" />
+    <div className="w-full p-2 flex flex-col max-w-[250px] justify-center min-h-[550px]">
+      <div className="h-[350px]  bg-slate-400" />
       <div className="justify-between flex flex-col flex-grow">
-        <span className="flex flex-col space-y-2">
+        <span className="flex flex-col space-y-1">
           <Typography variant="p">
             {generateRatingStars(ratings.stars)}
           </Typography>
           <Typography variant="p">{name}</Typography>
-          <Typography variant="span" className="truncate text-slate-500">
+          <Typography variant="span" className="truncate text-slate-500 ">
             {description}
           </Typography>
         </span>
+        <Typography variant="span" className="text-slate-500 font-semibold">
+          Color: {color}
+        </Typography>
         <span className="flex flex-row space-x-2">
           {discounted_price && (
             <Typography variant="h4" className="text-[#333333]">
@@ -94,8 +98,8 @@ const Products: FC<ProductsProps> = () => {
   };
 
   return (
-    <div className="w-3/4">
-      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <div className="w-full md:w-3/4 ">
+      <div className="place-items-center sm:place-items-start grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-8 ">
         {products.slice(0, visibleProducts).map((product, i) => (
           <ProductCard key={i} product={product} />
         ))}
