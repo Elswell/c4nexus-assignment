@@ -17,7 +17,7 @@ const ProductCard: FC<{ product: IProductData }> = ({ product }) => {
       <div className="justify-between flex flex-col flex-grow">
         <span className="flex flex-col space-y-1">
           <Typography variant="p">
-            {generateRatingStars(ratings.stars)}
+            {generateRatingStars(ratings.stars)} ({ratings.count})
           </Typography>
           <Typography variant="p">{name}</Typography>
           <Typography variant="span" className="truncate text-slate-500 ">
@@ -98,7 +98,7 @@ const Products: FC<ProductsProps> = () => {
   };
 
   return (
-    <div className="w-full md:w-3/4 ">
+    <div className="w-full md:w-3/4">
       <div className="place-items-center sm:place-items-start grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-8 ">
         {products.slice(0, visibleProducts).map((product, i) => (
           <ProductCard key={i} product={product} />
@@ -107,7 +107,7 @@ const Products: FC<ProductsProps> = () => {
       {visibleProducts < products.length && (
         <div className="mt-4 flex items-center justify-center">
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded "
+            className="px-4 py-2 bg-zinc-700 hover:bg-zinc-900 transition-colors text-white rounded "
             onClick={handleLoadMore}
           >
             Load More

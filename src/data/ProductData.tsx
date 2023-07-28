@@ -5,7 +5,7 @@ export interface IProductData {
   price: number;
   color: string;
   discounted_price?: number;
-  ratings: { stars: number };
+  ratings: { stars: number; count: number };
 }
 
 export const ProductData: IProductData[] = [
@@ -18,6 +18,7 @@ export const ProductData: IProductData[] = [
     discounted_price: 39.99,
     ratings: {
       stars: 4.5,
+      count: 2512,
     },
   },
   {
@@ -27,9 +28,9 @@ export const ProductData: IProductData[] = [
       "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     price: 29.99,
     color: "Black",
-
     ratings: {
       stars: 3.8,
+      count: 222,
     },
   },
   {
@@ -42,6 +43,7 @@ export const ProductData: IProductData[] = [
     discounted_price: 69.99,
     ratings: {
       stars: 4.9,
+      count: 1212,
     },
   },
   {
@@ -53,6 +55,7 @@ export const ProductData: IProductData[] = [
     color: "Red",
     ratings: {
       stars: 4.2,
+      count: 1853,
     },
   },
   {
@@ -64,6 +67,7 @@ export const ProductData: IProductData[] = [
     color: "Green",
     ratings: {
       stars: 3.5,
+      count: 82,
     },
   },
   {
@@ -75,6 +79,7 @@ export const ProductData: IProductData[] = [
     color: "Green",
     ratings: {
       stars: 4.0,
+      count: 100,
     },
   },
   {
@@ -86,6 +91,7 @@ export const ProductData: IProductData[] = [
     color: "Blue",
     ratings: {
       stars: 4.7,
+      count: 600,
     },
   },
   {
@@ -98,6 +104,7 @@ export const ProductData: IProductData[] = [
     discounted_price: 18.99,
     ratings: {
       stars: 3.9,
+      count: 222,
     },
   },
   {
@@ -109,6 +116,7 @@ export const ProductData: IProductData[] = [
     color: "Brown",
     ratings: {
       stars: 4.2,
+      count: 846,
     },
   },
   {
@@ -120,6 +128,7 @@ export const ProductData: IProductData[] = [
     color: "Brown",
     ratings: {
       stars: 4.8,
+      count: 402,
     },
   },
   {
@@ -131,6 +140,7 @@ export const ProductData: IProductData[] = [
     color: "Yellow",
     ratings: {
       stars: 3.6,
+      count: 423,
     },
   },
   {
@@ -142,6 +152,7 @@ export const ProductData: IProductData[] = [
     color: "Yellow",
     ratings: {
       stars: 4.1,
+      count: 662,
     },
   },
   {
@@ -153,6 +164,7 @@ export const ProductData: IProductData[] = [
     color: "Yellow",
     ratings: {
       stars: 4.6,
+      count: 34,
     },
   },
   {
@@ -163,6 +175,7 @@ export const ProductData: IProductData[] = [
     color: "Yellow",
     ratings: {
       stars: 3.7,
+      count: 120,
     },
   },
   {
@@ -174,6 +187,7 @@ export const ProductData: IProductData[] = [
     color: "Red",
     ratings: {
       stars: 4.3,
+      count: 3521,
     },
   },
   {
@@ -184,6 +198,7 @@ export const ProductData: IProductData[] = [
     color: "Red",
     ratings: {
       stars: 3.9,
+      count: 912,
     },
   },
   {
@@ -195,6 +210,7 @@ export const ProductData: IProductData[] = [
     color: "Purple",
     ratings: {
       stars: 4.8,
+      count: 45,
     },
   },
   {
@@ -205,6 +221,7 @@ export const ProductData: IProductData[] = [
     color: "Red",
     ratings: {
       stars: 3.5,
+      count: 1353,
     },
   },
   {
@@ -215,6 +232,7 @@ export const ProductData: IProductData[] = [
     color: "Purple",
     ratings: {
       stars: 4.2,
+      count: 542,
     },
   },
   {
@@ -225,6 +243,7 @@ export const ProductData: IProductData[] = [
     color: "Red",
     ratings: {
       stars: 4.0,
+      count: 250,
     },
   },
 ];
