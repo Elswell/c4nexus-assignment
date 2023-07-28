@@ -5,10 +5,12 @@ import { cn } from "../utils/cn";
 import { Typography } from "./Typography";
 import { Slider } from "./ui/slider";
 import { debounce } from "../utils/debounce";
+import { store } from "../store/filter";
+import { useSnapshot } from "valtio";
 
-interface ProductsFilterProps {}
+const ProductsFilter: FC = () => {
+  const { amount } = useSnapshot(store);
 
-const ProductsFilter: FC<ProductsFilterProps> = () => {
   const allColors = new Set();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
@@ -41,6 +43,7 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
 
   const priceSortParam = searchParams.get("priceSort");
   const alphabeticalSortParam = searchParams.get("alphabeticalSort");
+  const categoryParam = searchParams.get("category");
 
   useEffect(() => {
     const filterParams: {
@@ -49,9 +52,11 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
       alphabeticalSort?: string;
       priceMin: string;
       priceMax: string;
+      category?: string;
     } = {
       priceMin: String(selectedPrice.min[0]),
       priceMax: String(selectedPrice.max[0]),
+      category: "kitchen-dining",
     };
 
     if (selectedColors.length > 0) {
@@ -61,8 +66,13 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
     if (priceSortParam) {
       filterParams.priceSort = priceSortParam;
     }
+
     if (alphabeticalSortParam) {
       filterParams.alphabeticalSort = alphabeticalSortParam;
+    }
+
+    if (categoryParam) {
+      filterParams.category = categoryParam;
     }
 
     setSearchParams({
@@ -75,6 +85,7 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
     searchParams,
     priceSortParam,
     alphabeticalSortParam,
+    categoryParam,
   ]);
 
   return (
@@ -90,7 +101,7 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
                 key={i}
                 className={cn(
                   colorParams?.includes(data.color)
-                    ? "border-b-[1px] border-b-red-500"
+                    ? "border-b-[1px] border-b-zinc-400"
                     : "border-b-[1px] border-b-transparent",
                   "w-1/3"
                 )}
@@ -115,6 +126,11 @@ const ProductsFilter: FC<ProductsFilterProps> = () => {
           <Typography variant="p">${selectedPrice.min[0]}</Typography>
           <Typography variant="p">${selectedPrice.max[0]}</Typography>
         </span>
+      </div>
+      <div className="border-[#333333] border-2 text-center p-2">
+        <Typography variant="span" className="text-[#333333] font-semibold">
+          Results found: {amount}
+        </Typography>
       </div>
     </div>
   );

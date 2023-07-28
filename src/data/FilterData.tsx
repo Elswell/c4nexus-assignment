@@ -5,19 +5,19 @@ interface IFilterData {
 
 export const CategoryData: IFilterData[] = [
   {
-    label: "Category1",
-    param: "category1",
+    label: "Kitchen & Dining",
+    param: "kitchen-dining",
   },
   {
-    label: "Category2",
-    param: "category2",
+    label: "Home Decor",
+    param: "home-decor",
   },
   {
-    label: "Category3",
-    param: "category3",
+    label: "Cleaning",
+    param: "cleaning",
   },
   {
-    label: "Category4",
-    param: "category4",
+    label: "DIY",
+    param: "diy",
   },
 ];

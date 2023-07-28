@@ -1,5 +1,5 @@
 import { FC } from "react";
-// import CategoryFilter from "../components/CategoryFilter";
+import CategoryFilter from "../components/CategoryFilter";
 import ProductsFilter from "../components/ProductsFilter";
 import Products from "../components/Products";
 import ProductsSort from "../components/ProductsSort";
@@ -8,12 +8,12 @@ interface HomeProps {}
 
 const Home: FC<HomeProps> = () => {
   return (
-    <section className="container flex self-start justify-start flex-col">
-      {/* <CategoryFilter /> */}
+    <section className="container flex self-start justify-start flex-col min-h-screen">
+      <CategoryFilter />
       <div className="flex mt-16">
         <ProductsSort />
       </div>
-      <div className="flex my-8">
+      <div className="flex my-8 ">
         <ProductsFilter />
         <Products />
       </div>

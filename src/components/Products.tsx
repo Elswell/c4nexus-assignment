@@ -4,16 +4,17 @@ import { Typography } from "./Typography";
 import { cn } from "../utils/cn";
 import { generateRatingStars } from "../utils/generateRatingStars";
 import { useSearchParams } from "react-router-dom";
+import { store } from "../store/filter";
 
 interface ProductsProps {}
 
 const ProductCard: FC<{ product: IProductData }> = ({ product }) => {
-  const { description, name, price, ratings, discounted_price, color } =
+  const { description, name, price, ratings, discounted_price, color, image } =
     product;
 
   return (
     <div className="w-full p-2 flex flex-col max-w-[250px] justify-center min-h-[550px]">
-      <div className="h-[350px]  bg-slate-400" />
+      <img src={image} width={250} height={350} />
       <div className="justify-between flex flex-col flex-grow">
         <span className="flex flex-col space-y-1">
           <Typography variant="p">
@@ -56,6 +57,7 @@ const Products: FC<ProductsProps> = () => {
   const priceQueryMax = Number(searchParams.get("priceMax"));
   const priceSort = searchParams.get("priceSort");
   const alphabeticalSort = searchParams.get("alphabeticalSort");
+  const categoryQuery = searchParams.get("category");
 
   // Filtering Logic
 
@@ -69,7 +71,9 @@ const Products: FC<ProductsProps> = () => {
       const priceFilter =
         product.price >= priceQueryMin && product.price <= priceQueryMax;
 
-      return colorFilter && priceFilter;
+      const categoryFilter = product.category === categoryQuery;
+
+      return colorFilter && priceFilter && categoryFilter;
     });
 
     if (priceSort === "asc") {
@@ -84,8 +88,17 @@ const Products: FC<ProductsProps> = () => {
       filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
     }
 
+    store.amount = filteredProducts.length;
+
     setProducts(filteredProducts);
-  }, [alphabeticalSort, colorsQuery, priceQueryMax, priceQueryMin, priceSort]);
+  }, [
+    alphabeticalSort,
+    categoryQuery,
+    colorsQuery,
+    priceQueryMax,
+    priceQueryMin,
+    priceSort,
+  ]);
 
   // Load More Logic
 
