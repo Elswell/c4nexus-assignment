@@ -9,7 +9,7 @@ import { store } from "../store/filter";
 import { useSnapshot } from "valtio";
 
 const ProductsFilter: FC = () => {
-  const { amount } = useSnapshot(store);
+  const { results } = useSnapshot(store);
 
   const allColors = new Set();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -101,8 +101,8 @@ const ProductsFilter: FC = () => {
                 key={i}
                 className={cn(
                   colorParams?.includes(data.color)
-                    ? "border-b-[1px] border-b-zinc-400"
-                    : "border-b-[1px] border-b-transparent",
+                    ? "text-[#333333] font-bold"
+                    : "font-normal",
                   "w-1/3"
                 )}
               >
@@ -129,7 +129,7 @@ const ProductsFilter: FC = () => {
       </div>
       <div className="border-[#333333] border-2 text-center p-2">
         <Typography variant="span" className="text-[#333333] font-semibold">
-          Results found: {amount}
+          Results found: {results}
         </Typography>
       </div>
     </div>

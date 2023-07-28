@@ -44,7 +44,7 @@ const ProductsSort: FC<ProductsSortProps> = () => {
           onChange={(e) => setPriceSort(e.target.value)}
           value={priceSort}
           defaultValue=""
-          className="px-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
+          className="px-2 bg-zinc-700 rounded-lg hover:bg-zinc-900 transition-colors text-white"
         >
           <option value="" disabled>
             Select Price Sort
@@ -56,7 +56,7 @@ const ProductsSort: FC<ProductsSortProps> = () => {
           onChange={(e) => setAlphabeticalSort(e.target.value)}
           value={alphabeticalSort}
           defaultValue=""
-          className="px-2 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
+          className="px-2 bg-zinc-700 rounded-lg hover:bg-zinc-900 transition-colors text-white"
         >
           <option value="" disabled>
             Select Alphabetical Sort

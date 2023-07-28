@@ -88,7 +88,7 @@ const Products: FC<ProductsProps> = () => {
       filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
     }
 
-    store.amount = filteredProducts.length;
+    store.results = filteredProducts.length;
 
     setProducts(filteredProducts);
   }, [
