@@ -11,34 +11,36 @@ const ProductCard: FC<{ product: IProductData }> = ({ product }) => {
   const { description, name, price, ratings, discounted_price } = product;
 
   return (
-    <div className="w-full p-2 flex flex-col">
+    <div className="w-full p-2 flex flex-col h-[550px]">
       <div className="h-[350px] bg-slate-400" />
-      <span className="flex justify-between">
-        <Typography variant="p">{name}</Typography>
-        <Typography variant="p">
-          {generateRatingStars(ratings.stars)}
-        </Typography>
-      </span>
-      <Typography variant="span" className="truncate text-slate-500">
-        {description}
-      </Typography>
-      <span className="flex flex-row space-x-2">
-        {discounted_price && (
-          <Typography variant="h4" className="text-[#333333]">
-            ${discounted_price}
+      <div className="justify-between flex flex-col flex-grow">
+        <span className="flex flex-col space-y-2">
+          <Typography variant="p">
+            {generateRatingStars(ratings.stars)}
           </Typography>
-        )}
-        <Typography
-          variant={discounted_price ? "p" : "h4"}
-          className={cn(
-            discounted_price &&
-              "line-through decoration-red-500 decoration-2 text-opacity-60",
-            "text-[#333333]"
+          <Typography variant="p">{name}</Typography>
+          <Typography variant="span" className="truncate text-slate-500">
+            {description}
+          </Typography>
+        </span>
+        <span className="flex flex-row space-x-2">
+          {discounted_price && (
+            <Typography variant="h4" className="text-[#333333]">
+              ${discounted_price}
+            </Typography>
           )}
-        >
-          ${price}
-        </Typography>
-      </span>
+          <Typography
+            variant={discounted_price ? "p" : "h4"}
+            className={cn(
+              discounted_price &&
+                "line-through decoration-red-500 decoration-2 text-opacity-60",
+              "text-[#333333]"
+            )}
+          >
+            ${price}
+          </Typography>
+        </span>
+      </div>
     </div>
   );
 };
