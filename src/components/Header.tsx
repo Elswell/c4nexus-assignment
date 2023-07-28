@@ -8,8 +8,8 @@ interface HeaderProps {}
 const Header: FC<HeaderProps> = () => {
   return (
     <>
-      <header className="container py-2">
-        <nav className="flex items-center justify-between">
+      <header className="sticky top-0 bg-white py-4 border-b-2 border-[#333333]">
+        <nav className="flex items-center justify-between container">
           <div>
             <Typography variant="h4">Logo</Typography>
           </div>

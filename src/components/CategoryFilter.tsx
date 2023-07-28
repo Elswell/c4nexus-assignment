@@ -30,7 +30,7 @@ const CategoryFilter: FC = () => {
 
   return (
     <>
-      <div className="w-full mt-8 py-2 flex justify-between divide-x-[1px] divide-[#333333] border-[1px] border-[#333333]">
+      <div className="bg-white w-full mt-8 py-2 flex justify-between divide-x divide-[#333333] border border-[#333333]">
         {CategoryData.map((data, i) => (
           <div key={`categoryTab${i}`} className="justify-center w-full flex">
             <button
@@ -47,7 +47,7 @@ const CategoryFilter: FC = () => {
           </div>
         ))}
       </div>
-      <div className="w-full">
+      <div className="w-full mt-4">
         <Typography variant="h4" className="text-[#333333] text-center">
           Browse {currentProductsLength} products in {categoryName}
         </Typography>
