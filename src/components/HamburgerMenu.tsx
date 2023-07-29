@@ -10,7 +10,7 @@ interface HamburgerMenuProps {
 
 const HamburgerMenu: FC<HamburgerMenuProps> = ({ callbackToggle, data }) => {
   return (
-    <div className="fixed w-full h-[30vh]  dark:bg-slate-900 bg-white border-b-2 border-b-charcoal dark:border-b-gray-300 text-charcoal z-50">
+    <div className="fixed w-full h-[30vh] dark:bg-slate-900 bg-white border-b-2 border-b-charcoal dark:border-b-gray-300 text-charcoal z-50">
       <X
         onClick={callbackToggle}
         className="absolute top-4 right-8 h-8 w-8 dark:text-gray-300"

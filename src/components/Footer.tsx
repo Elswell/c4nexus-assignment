@@ -74,7 +74,7 @@ export const FooterData: {
 const Footer: FC = () => {
   return (
     <>
-      <footer className="bg-white dark:bg-slate-900 h-full dark:border-t-gray-300 border-t-2 border-t-charcoal h-[30vh] w-full ">
+      <footer className="bg-white dark:bg-slate-900 h-full dark:border-t-gray-300 border-t-2 border-t-charcoal w-full ">
         <div className="container flex flex-col py-16 space-y-16">
           <div className="flex items-center space-x-8 justify-center w-full">
             <Facebook className="cursor-pointer" />
