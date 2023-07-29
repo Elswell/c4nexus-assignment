@@ -7,6 +7,11 @@ const AddToCart: FC<AddToCartProps> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleShoppingCart = () => {
+    if (isLoading) {
+      toast.error("Please wait!");
+      return;
+    }
+
     setIsLoading(true);
     setTimeout(() => {
       toast.success("Product added to the cart!");
@@ -16,12 +21,11 @@ const AddToCart: FC<AddToCartProps> = () => {
 
   return (
     <>
-      <button className="absolute top-4 right-4 bg-white w-10 h-10 p-2 rounded-lg hover:bg-zinc-700 hover:text-white transition-colors cursor-pointer">
-        {isLoading ? (
-          <Loader2 className="animate-spin" />
-        ) : (
-          <ShoppingCart onClick={handleShoppingCart} />
-        )}
+      <button
+        onClick={handleShoppingCart}
+        className="absolute top-4 right-4 bg-white w-10 h-10 p-2 rounded-lg hover:bg-zinc-700 hover:text-white transition-colors cursor-pointer"
+      >
+        {isLoading ? <Loader2 className="animate-spin" /> : <ShoppingCart />}
       </button>
       <Toaster />
     </>

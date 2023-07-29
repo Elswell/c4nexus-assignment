@@ -83,14 +83,20 @@ const Footer: FC = () => {
           </div>
           <div className="flex flex-col items-center text-center space-y-16 md:space-y-0 md:flex-row md:space-x-16 justify-center ">
             {FooterData.map((data, i) => (
-              <ul key={`list${i}`} className="flex flex-col space-y-2">
+              <ul
+                key={`list${i}`}
+                className="flex flex-col space-y-2 [&>li]:cursor-pointer"
+              >
                 {data.title !== "LEGAL" && (
-                  <li className="font-semibold">{data.title}</li>
+                  <li className="font-semibold !cursor-auto">{data.title}</li>
                 )}
                 {data.list.map((link, i) => (
                   <li
                     key={`link${i}`}
-                    className={cn(data.title === "LEGAL" && "font-semibold")}
+                    className={cn(
+                      data.title === "LEGAL" && "font-semibold",
+                      " hover:border-b-zinc-900 border-b border-b-transparent transition-all"
+                    )}
                   >
                     {link.label}
                   </li>
