@@ -49,7 +49,7 @@ const ProductsFilter: FC = () => {
                 key={i}
                 className={cn(
                   colors?.includes(data.color)
-                    ? "text-charcoal font-bold"
+                    ? "text-charcoal dark:text-gray-300 font-bold"
                     : "font-normal",
                   "w-1/3"
                 )}

@@ -43,7 +43,7 @@ const MobileFilter: FC<MobileFilterProps> = () => {
   return (
     <div className="md:hidden w-full flex items-center justify-center">
       <Dialog>
-        <DialogTrigger className="py-2 px-8 bg-zinc-700 text-white rounded-md self-center">
+        <DialogTrigger className="py-2 px-8 bg-zinc-700 dark:bg-slate-900 text-white rounded-md self-center">
           Filters
         </DialogTrigger>
         <DialogContent className="w-2/3">
@@ -58,7 +58,7 @@ const MobileFilter: FC<MobileFilterProps> = () => {
                     onClick={() => handleColorFilter(data.color)}
                     className={cn(
                       colors?.includes(data.color)
-                        ? "text-charcoal font-bold"
+                        ? "text-charcoal dark:text-gray-300 font-bold"
                         : "font-normal"
                     )}
                   >
@@ -91,7 +91,7 @@ const MobileFilter: FC<MobileFilterProps> = () => {
               }}
               value={store.priceSort}
               defaultValue=""
-              className="w-full px-2 py-2 bg-zinc-700 rounded-lg hover:bg-zinc-900 transition-colors text-white"
+              className="w-full px-2 py-2 dark:bg-slate-900 bg-zinc-700 rounded-lg hover:bg-zinc-900 transition-colors text-white"
             >
               <option value="" disabled>
                 Select Price Sort
@@ -106,7 +106,7 @@ const MobileFilter: FC<MobileFilterProps> = () => {
               }}
               value={store.alphabeticalSort}
               defaultValue=""
-              className="w-full px-2 py-2 bg-zinc-700 rounded-lg hover:bg-zinc-900 transition-colors text-white"
+              className="w-full px-2 py-2 dark:bg-slate-900 bg-zinc-700 rounded-lg hover:bg-zinc-900 transition-colors text-white"
             >
               <option value="" disabled>
                 Select Alphabetical Sort
@@ -115,8 +115,11 @@ const MobileFilter: FC<MobileFilterProps> = () => {
               <option value="desc">Z-A</option>
             </select>
           </div>
-          <div className="border-charcoal border-2 text-center p-2">
-            <Typography variant="span" className="text-charcoal font-semibold">
+          <div className="border-charcoal dark:border-gray-300 border-2 text-center p-2">
+            <Typography
+              variant="span"
+              className="text-charcoal dark:text-gray-300 font-semibold"
+            >
               Results found: {results}
             </Typography>
           </div>
