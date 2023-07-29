@@ -17,7 +17,7 @@ const ProductsSort: FC<ProductsSortProps> = () => {
           }}
           value={store.priceSort}
           defaultValue=""
-          className="px-2 bg-zinc-700 rounded-lg hover:bg-zinc-900 transition-colors text-white"
+          className="px-2 bg-zinc-700 dark:bg-slate-900 rounded-lg hover:bg-zinc-900 transition-colors text-white"
         >
           <option value="" disabled>
             Select Price Sort
@@ -32,7 +32,7 @@ const ProductsSort: FC<ProductsSortProps> = () => {
           }}
           value={store.alphabeticalSort}
           defaultValue=""
-          className="px-2 bg-zinc-700 rounded-lg hover:bg-zinc-900 transition-colors text-white"
+          className="px-2 bg-zinc-700 dark:bg-slate-900 rounded-lg hover:bg-zinc-900 transition-colors text-white"
         >
           <option value="" disabled>
             Select Alphabetical Sort

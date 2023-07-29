@@ -7,7 +7,7 @@ interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = () => {
   return (
-    <main className="flex flex-col min-h-screen ">
+    <main className="flex flex-col min-h-screen dark:bg-slate-800 ">
       <Header />
       <section className="flex-grow">
         <Outlet />

@@ -49,7 +49,7 @@ const ProductsFilter: FC = () => {
                 key={i}
                 className={cn(
                   colors?.includes(data.color)
-                    ? "text-[#333333] font-bold"
+                    ? "text-charcoal font-bold"
                     : "font-normal",
                   "w-1/3"
                 )}
@@ -75,8 +75,11 @@ const ProductsFilter: FC = () => {
           <Typography variant="p">${store.price.max[0]}</Typography>
         </span>
       </div>
-      <div className="border-[#333333] border-2 text-center p-2">
-        <Typography variant="span" className="text-[#333333] font-semibold">
+      <div className="border-charcoal dark:border-gray-300 border-2 text-center p-2">
+        <Typography
+          variant="span"
+          className="text-charcoal dark:text-gray-300 font-semibold"
+        >
           Results found: {results}
         </Typography>
       </div>

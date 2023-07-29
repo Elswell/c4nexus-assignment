@@ -23,7 +23,7 @@ const AddToCart: FC<AddToCartProps> = () => {
     <>
       <button
         onClick={handleShoppingCart}
-        className="absolute top-4 right-4 bg-white w-10 h-10 p-2 rounded-lg hover:bg-zinc-700 hover:text-white transition-colors cursor-pointer"
+        className="absolute top-4 right-4 bg-white dark:bg-slate-700 dark:hover:bg-slate-900 w-10 h-10 p-2 rounded-lg hover:bg-zinc-700 hover:text-white transition-colors cursor-pointer"
       >
         {isLoading ? <Loader2 className="animate-spin" /> : <ShoppingCart />}
       </button>

@@ -24,16 +24,25 @@ const ProductCard: FC<{ product: IProductData }> = ({ product }) => {
               {generateRatingStars(ratings.stars)} ({ratings.count})
             </Typography>
             <Typography variant="p">{name}</Typography>
-            <Typography variant="span" className="truncate text-slate-500 ">
+            <Typography
+              variant="span"
+              className="truncate text-slate-500 dark:text-gray-400 "
+            >
               {description}
             </Typography>
           </span>
-          <Typography variant="span" className="text-slate-500 font-semibold">
+          <Typography
+            variant="span"
+            className="text-slate-500 dark:text-gray-400 font-semibold"
+          >
             Color: {color}
           </Typography>
           <span className="flex flex-row space-x-2">
             {discounted_price && (
-              <Typography variant="h4" className="text-[#333333]">
+              <Typography
+                variant="h4"
+                className="text-charcoal dark:text-gray-300"
+              >
                 ${discounted_price}
               </Typography>
             )}
@@ -41,8 +50,8 @@ const ProductCard: FC<{ product: IProductData }> = ({ product }) => {
               variant={discounted_price ? "p" : "h4"}
               className={cn(
                 discounted_price &&
-                  "line-through decoration-red-500 decoration-2 text-opacity-60",
-                "text-[#333333]"
+                  "line-through decoration-red-500 decoration-2 text-opacity-60 ",
+                "text-charcoal dark:text-gray-300"
               )}
             >
               ${price}
@@ -142,7 +151,7 @@ const Products: FC<ProductsProps> = () => {
       </div>
       <div className="mt-4 flex items-center justify-center">
         <button
-          className="disabled:opacity-60 disabled:pointer-events-none px-4 py-2 bg-zinc-700 hover:bg-zinc-900 transition-colors text-white rounded "
+          className="dark:bg-slate-900 dark:hover:bg-slate-700 disabled:opacity-60 disabled:pointer-events-none px-4 py-2 bg-zinc-700 hover:bg-zinc-900 transition-colors text-white rounded "
           onClick={handleLoadMore}
           disabled={visibleProducts >= products.length}
         >

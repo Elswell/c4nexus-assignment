@@ -25,15 +25,15 @@ const CategoryFilter: FC = () => {
 
   return (
     <>
-      <div className="flex flex-col dividi-y md:flex-row bg-white w-full mt-8 py-2  justify-between md:divide-x divide-[#333333] border border-[#333333]">
+      <div className="flex flex-col dividi-y md:flex-row bg-white dark:bg-transparent dark:border-gray-300 dark:divide-gray-300  w-full mt-8 py-2  justify-between md:divide-x divide-charcoal border border-charcoal">
         {CategoryData.map((data, i) => (
           <div key={`categoryTab${i}`} className="justify-center w-full flex">
             <button
               onClick={() => (store.category = data.param)}
               className={cn(
                 currentCategoryParam === data.param
-                  ? "text-[#333333] font-semibold"
-                  : "text-[#5e7783]",
+                  ? "text-charcoal font-semibold dark:text-white"
+                  : "text-[#5e7783] dark:text-gray-200",
                 " w-full"
               )}
             >
@@ -43,7 +43,10 @@ const CategoryFilter: FC = () => {
         ))}
       </div>
       <div className="w-full mt-4">
-        <Typography variant="h4" className="text-[#333333] text-center">
+        <Typography
+          variant="h4"
+          className="text-charcoal dark:text-gray-300 text-center"
+        >
           Browse {currentProductsLength} products in {categoryName}
         </Typography>
       </div>

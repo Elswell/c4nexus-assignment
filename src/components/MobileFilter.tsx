@@ -58,7 +58,7 @@ const MobileFilter: FC<MobileFilterProps> = () => {
                     onClick={() => handleColorFilter(data.color)}
                     className={cn(
                       colors?.includes(data.color)
-                        ? "text-[#333333] font-bold"
+                        ? "text-charcoal font-bold"
                         : "font-normal"
                     )}
                   >
@@ -115,8 +115,8 @@ const MobileFilter: FC<MobileFilterProps> = () => {
               <option value="desc">Z-A</option>
             </select>
           </div>
-          <div className="border-[#333333] border-2 text-center p-2">
-            <Typography variant="span" className="text-[#333333] font-semibold">
+          <div className="border-charcoal border-2 text-center p-2">
+            <Typography variant="span" className="text-charcoal font-semibold">
               Results found: {results}
             </Typography>
           </div>

@@ -74,7 +74,7 @@ export const FooterData: {
 const Footer: FC = () => {
   return (
     <>
-      <footer className="bg-white border-t-2 border-t-[#333333] h-[30vh] w-full ">
+      <footer className="bg-white dark:bg-slate-900 dark:border-t-gray-300 border-t-2 border-t-charcoal h-[30vh] w-full ">
         <div className="container flex flex-col py-16 space-y-16">
           <div className="flex items-center space-x-8 justify-center w-full">
             <Facebook className="cursor-pointer" />
@@ -95,7 +95,7 @@ const Footer: FC = () => {
                     key={`link${i}`}
                     className={cn(
                       data.title === "LEGAL" && "font-semibold",
-                      " hover:border-b-zinc-900 border-b border-b-transparent transition-all"
+                      " hover:border-b-zinc-900 dark:hover:border-b-gray-300 border-b border-b-transparent transition-all"
                     )}
                   >
                     {link.label}

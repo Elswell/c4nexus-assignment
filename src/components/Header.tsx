@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Typography } from "./Typography";
 import { Link } from "react-router-dom";
+import Switcher from "./Switcher";
 
 export const NavbarData: { label: string; href: string }[] = [
   {
@@ -25,7 +26,7 @@ export const NavbarData: { label: string; href: string }[] = [
 const Header: FC = () => {
   return (
     <>
-      <header className="sticky top-0 bg-white py-4 border-b-2 border-[#333333] z-50">
+      <header className="sticky top-0 bg-white dark:bg-slate-900 dark:border-gray-300 py-4 border-b-2 border-charcoal z-50">
         <nav className="flex items-center justify-between container">
           <div>
             <Typography variant="h4">Logo</Typography>
@@ -37,6 +38,7 @@ const Header: FC = () => {
               </Typography>
             ))}
           </div>
+          <Switcher />
         </nav>
       </header>
     </>
