@@ -68,6 +68,7 @@ const Products: FC<ProductsProps> = () => {
       const colorFilter = colorsQuery
         ? colorsQuery.includes(product.color)
         : ProductData;
+
       const priceFilter =
         product.price >= priceQueryMin && product.price <= priceQueryMax;
 
@@ -77,9 +78,21 @@ const Products: FC<ProductsProps> = () => {
     });
 
     if (priceSort === "asc") {
-      filteredProducts.sort((a, b) => a.price - b.price);
+      filteredProducts.sort((a, b) => {
+        const priceA =
+          a.discounted_price !== undefined ? a.discounted_price : a.price;
+        const priceB =
+          b.discounted_price !== undefined ? b.discounted_price : b.price;
+        return priceA - priceB;
+      });
     } else if (priceSort === "desc") {
-      filteredProducts.sort((a, b) => b.price - a.price);
+      filteredProducts.sort((a, b) => {
+        const priceA =
+          a.discounted_price !== undefined ? a.discounted_price : a.price;
+        const priceB =
+          b.discounted_price !== undefined ? b.discounted_price : b.price;
+        return priceB - priceA;
+      });
     }
 
     if (alphabeticalSort === "asc") {
