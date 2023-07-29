@@ -5,23 +5,23 @@ I love using **TailwindCSS**, so I went with it for stlying.
 
 ## JavaScript libraries used
 
-1. shadcn/ui
+1. shadcn/ui:
 
 - Used their slider and dialog components for building part of the filter UI.
 
-2. lucide-react
+2. lucide-react:
 
 - My go to choice for an icon library
 
-3. react-hot-toast
+3. react-hot-toast:
 
 - Used for the add to cart alert
 
-4. valtio
+4. valtio:
 
 - Very lightweight management library. I used it to store the filter params from all filter components, and execute the logic in a single file.
 
-5. immer
+5. immer:
 
 - Allows me to update the filter states in a more convenient and immutable way. A draft copy of the state is created allowing me to make mutable changes.
 
@@ -115,7 +115,7 @@ const ProductFilter: FC = () => {
 ```
 
 I apply the searchParams in the Home.tsx file, the parent of all filter components.
-With the use of the hook by valtio **useSnapshot**, where I provide the store and destructure the states needed, I can then apply the searchParams in an useEffect. I had trouble with searchParam keys being added with no value: "/?color=". So knowing that only priceMin and priceMax have initial values 0 and 100, I decided to make the rest of the params optional and check if they are defined and add them to an object that is later spread in the setSearchParams()
+With the use of the hook by valtio **useSnapshot**, where I provide the store and destructure the states needed, I can then apply the searchParams in an useEffect. I had trouble with searchParam keys being added with no value: "/?color=". Knowing that only priceMin and priceMax have initial values 0 and 100, I decided to make the rest of the params optional and check if they are defined and add them to an object that is later spread in the setSearchParams()
 
 ```js
 const Home: FC<HomeProps> = () => {
