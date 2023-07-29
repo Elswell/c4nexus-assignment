@@ -5,23 +5,23 @@ I love using **TailwindCSS**, so I went with it for stlying.
 
 ## JavaScript libraries used
 
-1. shadcn/ui
+1. shadcn/ui:
 
 - Used their slider and dialog components for building part of the filter UI.
 
-2. lucide-react
+2. lucide-react:
 
 - My go to choice for an icon library
 
-3. react-hot-toast
+3. react-hot-toast:
 
 - Used for the add to cart alert
 
-4. valtio
+4. valtio:
 
 - Very lightweight management library. I used it to store the filter params from all filter components, and execute the logic in a single file.
 
-5. immer
+5. immer:
 
 - Allows me to update the filter states in a more convenient and immutable way. A draft copy of the state is created allowing me to make mutable changes.
 
