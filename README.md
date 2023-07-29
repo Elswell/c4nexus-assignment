@@ -230,3 +230,16 @@ const Products: FC<ProductProps> = () => {
   )
 };
 ```
+
+I had to add a debounce for the function that handles the price slider. When you moved the slider in fast motions for a few seconds it started to freeze and params were not being updated. This fixed the issue:
+
+```js
+  // Handle Price Params
+  const handlePriceFilter = useCallback(
+    debounce(({ min, max }: { min: number[]; max: number[] }) => {
+      store.price = { min: min, max: max };
+    }, 10),
+    []
+  );
+```
+
