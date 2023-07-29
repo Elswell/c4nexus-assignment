@@ -33,7 +33,7 @@ I decided to go with a very minimalistic design approach, using slate and zinc c
 
 With the help of **proxy** from the valtio package, I created a store where I set all the filters that are selected from the user. I also decided to set a default value to the category filter instead of initially displaying all products.
 
-```js
+```ts
 import { proxy } from "valtio";
 
 interface StoreProps {
