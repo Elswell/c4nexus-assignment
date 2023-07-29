@@ -25,6 +25,10 @@ I love using **TailwindCSS**, so I went with it for stlying.
 
 - Allows me to update the filter states in a more convenient and immutable way. A draft copy of the state is created allowing me to make mutable changes.
 
+6. react-toggle-dark-mode:
+
+- Dark/Light mode component
+
 ## UI/UX
 
 I decided to go with a very minimalistic design approach, using slate and zinc colors from tailwind and a custom charcoal color.
