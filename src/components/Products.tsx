@@ -5,6 +5,7 @@ import { cn } from "../utils/cn";
 import { generateRatingStars } from "../utils/generateRatingStars";
 import { useSearchParams } from "react-router-dom";
 import { store } from "../store/filter";
+import AddToCart from "./AddToCart";
 
 interface ProductsProps {}
 
@@ -13,40 +14,43 @@ const ProductCard: FC<{ product: IProductData }> = ({ product }) => {
     product;
 
   return (
-    <div className="w-full p-2 flex flex-col max-w-[250px] justify-center min-h-[550px]">
-      <img src={image} width={250} height={350} />
-      <div className="justify-between flex flex-col flex-grow">
-        <span className="flex flex-col space-y-1">
-          <Typography variant="p">
-            {generateRatingStars(ratings.stars)} ({ratings.count})
-          </Typography>
-          <Typography variant="p">{name}</Typography>
-          <Typography variant="span" className="truncate text-slate-500 ">
-            {description}
-          </Typography>
-        </span>
-        <Typography variant="span" className="text-slate-500 font-semibold">
-          Color: {color}
-        </Typography>
-        <span className="flex flex-row space-x-2">
-          {discounted_price && (
-            <Typography variant="h4" className="text-[#333333]">
-              ${discounted_price}
+    <>
+      <div className="w-full p-2 flex flex-col max-w-[250px] justify-center min-h-[550px] relative">
+        <AddToCart />
+        <img src={image} width={250} height={350} />
+        <div className="justify-between flex flex-col flex-grow">
+          <span className="flex flex-col space-y-1">
+            <Typography variant="p">
+              {generateRatingStars(ratings.stars)} ({ratings.count})
             </Typography>
-          )}
-          <Typography
-            variant={discounted_price ? "p" : "h4"}
-            className={cn(
-              discounted_price &&
-                "line-through decoration-red-500 decoration-2 text-opacity-60",
-              "text-[#333333]"
-            )}
-          >
-            ${price}
+            <Typography variant="p">{name}</Typography>
+            <Typography variant="span" className="truncate text-slate-500 ">
+              {description}
+            </Typography>
+          </span>
+          <Typography variant="span" className="text-slate-500 font-semibold">
+            Color: {color}
           </Typography>
-        </span>
+          <span className="flex flex-row space-x-2">
+            {discounted_price && (
+              <Typography variant="h4" className="text-[#333333]">
+                ${discounted_price}
+              </Typography>
+            )}
+            <Typography
+              variant={discounted_price ? "p" : "h4"}
+              className={cn(
+                discounted_price &&
+                  "line-through decoration-red-500 decoration-2 text-opacity-60",
+                "text-[#333333]"
+              )}
+            >
+              ${price}
+            </Typography>
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

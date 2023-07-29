@@ -1,27 +1,232 @@
-# React + TypeScript + Vite
+# Tech Stack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I decided to use **Vite** as the framework of choice, as the project is very minimal and there is no need for frameworks like NextJS.
+I love using **TailwindCSS**, so I went with it for stlying.
 
-Currently, two official plugins are available:
+## JavaScript libraries used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. shadcn/ui
 
-## Expanding the ESLint configuration
+- Used their slider and dialog components for building part of the filter UI.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. lucide-react
 
-- Configure the top-level `parserOptions` property like this:
+- My go to choice for an icon library
+
+3. react-hot-toast
+
+- Used for the add to cart alert
+
+4. valtio
+
+- Very lightweight management library. I used it to store the filter params from all filter components, and execute the logic in a single file.
+
+5. immer
+
+- Allows me to update the filter states in a more convenient and immutable way. A draft copy of the state is created allowing me to make mutable changes.
+
+## UI/UX
+
+I decided to go with a very minimalistic design approach, using slate and zinc colors from tailwind and a custom charcoal color.
+
+## Filtering & Sorting Logic
+
+With the help of **proxy** from the valtio package, I created a store where I set all the filters that are selected from the user. I also decided to set a default value to the category filter instead of initially displaying all products.
 
 ```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+import { proxy } from "valtio";
+
+interface StoreProps {
+  results: number;
+  category: string | undefined;
+  colors: string[];
+  price: { min: number[], max: number[] };
+  priceSort: string;
+  alphabeticalSort: string;
+}
+
+export const store =
+  proxy <
+  StoreProps >
+  {
+    results: 0,
+    category: "kitchen-dining",
+    colors: [],
+    price: { min: [0], max: [100] },
+    alphabeticalSort: "",
+    priceSort: "",
+  };
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+I am setting the filter states for everything this way except the colors where a bit more logic is needed, example:
+
+```js
+import { store } from "../store/filter";
+
+const CategoryFilter: FC = () => {
+  // ...
+  return (
+    <div className="...">
+      {CategoryData.map((data, i) => (
+        <div key={`categoryTab${i}`} className="...">
+          <button
+            onClick={() => (store.category = data.param)}
+            // When the button is clicked the state in the store is updated immediately
+            className="..."
+          >
+            {data.label}
+          </button>
+        </div>
+      ))}
+    </div>
+    // ...
+  );
+};
+```
+
+For modifying the colors using the valtio store I had some issues, at first I was using an useState to store the colors in an array of strings, and then later join them with "," to add them to the searchParams.
+Selecting and adding a color to the params was fine, but if I wanted to remove a color by unselecting there was some weird behavior, as where the last selected color wasn't getting removed but only the color next to last. After finding the immer package I used it to modify the colors state, example:
+
+```js
+import { store } from "../store/filter";
+import { produce } from "immer";
+
+const ProductFilter: FC = () => {
+  // ...
+  const handleColorFilter = (color: string) => {
+    if (store.colors?.includes(color)) {
+      store.colors = produce(store.colors, (draft) => {
+        const index = draft.indexOf(color);
+        if (index !== -1) {
+          draft.splice(index, 1);
+        }
+      });
+    } else {
+      store.colors = produce(store.colors, (draft) => {
+        draft.push(color);
+      });
+    }
+  };
+
+   return (
+     // ...
+   )
+}
+```
+
+I apply the searchParams in the Home.tsx file, the parent of all filter components.
+With the use of the hook by valtio **useSnapshot**, where I provide the store and destructure the states needed, I can then apply the searchParams in an useEffect. I had trouble with searchParam keys being added with no value: "/?color=". So knowing that only priceMin and priceMax have initial values 0 and 100, I decided to make the rest of the params optional and check if they are defined and add them to an object that is later spread in the setSearchParams()
+
+```js
+const Home: FC<HomeProps> = () => {
+  const { category, price, priceSort, alphabeticalSort, colors } =
+    useSnapshot(store);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Apply Search Params Logic
+  useEffect(() => {
+    const filterParams: {
+      color?: string;
+      priceSort?: string;
+      alphabeticalSort?: string;
+      priceMin: string;
+      priceMax: string;
+      category?: string;
+    } = {
+      priceMin: String(price.min[0]),
+      priceMax: String(price.max[0]),
+    };
+
+    if (colors && colors.length > 0) {
+      filterParams.color = colors.join(",");
+    }
+
+    if (priceSort) {
+      filterParams.priceSort = priceSort;
+    }
+
+    if (alphabeticalSort) {
+      filterParams.alphabeticalSort = alphabeticalSort;
+    }
+
+    if (category) {
+      filterParams.category = category;
+    }
+
+    setSearchParams({
+      ...filterParams,
+    });
+  }, [
+    // ...
+  ]);
+
+   return (
+      // ...
+   )
+}
+```
+
+The actual filtering of products with the sample data from "/data/ProductData.tsx" is done using javascript methods: filter(), sort() and includes(). The price sorting turned out a bit tricky, because I didn't consider the discounted price initially, so I am checking if a discounted price exists and use that to sort, instead of the price field.
+
+```js
+const Products: FC<ProductProps> = () => {
+  const [searchParams] = useSearchParams();
+
+  const colorsQuery = searchParams.get("color");
+  // I get all the params here using searchParams.get()
+
+  const [products, setProducts] = useState(ProductData);
+
+  useEffect(
+    () => {
+      const filteredProducts = ProductData.filter((product) => {
+        const colorFilter = colorsQuery
+          ? colorsQuery.includes(product.color)
+          : ProductData;
+
+        const priceFilter =
+          product.price >= priceQueryMin && product.price <= priceQueryMax;
+
+        const categoryFilter = product.category === categoryQuery;
+
+        return colorFilter && priceFilter && categoryFilter;
+      });
+
+      if (priceSort === "asc") {
+        filteredProducts.sort((a, b) => {
+          const priceA =
+            a.discounted_price !== undefined ? a.discounted_price : a.price;
+          const priceB =
+            b.discounted_price !== undefined ? b.discounted_price : b.price;
+          return priceA - priceB;
+        });
+      } else if (priceSort === "desc") {
+        filteredProducts.sort((a, b) => {
+          const priceA =
+            a.discounted_price !== undefined ? a.discounted_price : a.price;
+          const priceB =
+            b.discounted_price !== undefined ? b.discounted_price : b.price;
+          return priceB - priceA;
+        });
+      }
+
+      if (alphabeticalSort === "asc") {
+        filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (alphabeticalSort === "desc") {
+        filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      store.results = filteredProducts.length;
+
+      setProducts(filteredProducts);
+    },
+    [
+      // ...
+    ]
+  );
+
+  return (
+   // ...
+  )
+};
+```

@@ -4,8 +4,8 @@ import { cn } from "../utils/cn";
 import { Typography } from "./Typography";
 import { Slider } from "./ui/slider";
 import { debounce } from "../utils/debounce";
-import { store } from "../store/filter";
 import { useSnapshot } from "valtio";
+import { store } from "../store/filter";
 import { produce } from "immer";
 
 const ProductsFilter: FC = () => {
