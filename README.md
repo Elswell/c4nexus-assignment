@@ -60,7 +60,7 @@ export const store =
 
 I am setting the filter states for everything this way except the colors where a bit more logic is needed, example:
 
-```js
+```ts
 import { store } from "../store/filter";
 
 const CategoryFilter: FC = () => {
@@ -87,7 +87,7 @@ const CategoryFilter: FC = () => {
 For modifying the colors using the valtio store I had some issues, at first I was using an useState to store the colors in an array of strings, and then later join them with "," to add them to the searchParams.
 Selecting and adding a color to the params was fine, but if I wanted to remove a color by unselecting there was some weird behavior, as where the last selected color wasn't getting removed but only the color next to last. After finding the immer package I used it to modify the colors state, example:
 
-```js
+```ts
 import { store } from "../store/filter";
 import { produce } from "immer";
 
@@ -117,7 +117,7 @@ const ProductFilter: FC = () => {
 I apply the searchParams in the Home.tsx file, the parent of all filter components.
 With the use of the hook by valtio **useSnapshot**, where I provide the store and destructure the states needed, I can then apply the searchParams in an useEffect. I had trouble with searchParam keys being added with no value: "/?color=". Knowing that only priceMin and priceMax have initial values 0 and 100, I decided to make the rest of the params optional and check if they are defined and add them to an object that is later spread in the setSearchParams()
 
-```js
+```ts
 const Home: FC<HomeProps> = () => {
   const { category, price, priceSort, alphabeticalSort, colors } =
     useSnapshot(store);
@@ -168,7 +168,7 @@ const Home: FC<HomeProps> = () => {
 
 The actual filtering of products with the sample data from "/data/ProductData.tsx" is done using javascript methods: filter(), sort() and includes(). The price sorting turned out a bit tricky, because I didn't consider the discounted price initially, so I am checking if a discounted price exists and use that to sort, instead of the price field.
 
-```js
+```ts
 const Products: FC<ProductProps> = () => {
   const [searchParams] = useSearchParams();
 
@@ -233,7 +233,7 @@ const Products: FC<ProductProps> = () => {
 
 I had to add a debounce for the function that handles the price slider. When you moved the slider in fast motions for a few seconds it started to freeze and params were not being updated. This fixed the issue:
 
-```js
+```ts
   // Handle Price Params
   const handlePriceFilter = useCallback(
     debounce(({ min, max }: { min: number[]; max: number[] }) => {
