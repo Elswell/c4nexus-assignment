@@ -7,10 +7,7 @@ export const NavbarData: { label: string; href: string }[] = [
     label: "Home",
     href: "/",
   },
-  {
-    label: "Consingment",
-    href: "/",
-  },
+
   {
     label: "About",
     href: "/",
@@ -20,7 +17,7 @@ export const NavbarData: { label: string; href: string }[] = [
     href: "/",
   },
   {
-    label: "News",
+    label: "Cart",
     href: "/",
   },
 ];

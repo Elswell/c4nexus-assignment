@@ -127,6 +127,12 @@ const Products: FC<ProductsProps> = () => {
     setVisibleProducts((prevCount) => prevCount + productsPerLoad);
   };
 
+  useEffect(() => {
+    if (categoryQuery) {
+      setVisibleProducts(initialProductCount);
+    }
+  }, [categoryQuery]);
+
   return (
     <div className="w-full md:w-3/4">
       <div className="place-items-center sm:place-items-start grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-8 ">
@@ -134,16 +140,15 @@ const Products: FC<ProductsProps> = () => {
           <ProductCard key={i} product={product} />
         ))}
       </div>
-      {visibleProducts < products.length && (
-        <div className="mt-4 flex items-center justify-center">
-          <button
-            className="px-4 py-2 bg-zinc-700 hover:bg-zinc-900 transition-colors text-white rounded "
-            onClick={handleLoadMore}
-          >
-            Load More
-          </button>
-        </div>
-      )}
+      <div className="mt-4 flex items-center justify-center">
+        <button
+          className="disabled:opacity-60 disabled:pointer-events-none px-4 py-2 bg-zinc-700 hover:bg-zinc-900 transition-colors text-white rounded "
+          onClick={handleLoadMore}
+          disabled={visibleProducts >= products.length}
+        >
+          Load More
+        </button>
+      </div>
     </div>
   );
 };
