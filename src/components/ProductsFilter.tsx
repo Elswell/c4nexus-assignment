@@ -1,92 +1,40 @@
-import { FC, useEffect, useState, useCallback } from "react";
+import { FC, useCallback } from "react";
 import { ProductData } from "../data/ProductData";
-import { useSearchParams } from "react-router-dom";
 import { cn } from "../utils/cn";
 import { Typography } from "./Typography";
 import { Slider } from "./ui/slider";
 import { debounce } from "../utils/debounce";
 import { store } from "../store/filter";
 import { useSnapshot } from "valtio";
+import { produce } from "immer";
 
 const ProductsFilter: FC = () => {
-  const { results } = useSnapshot(store);
-
+  const { results, colors } = useSnapshot(store);
   const allColors = new Set();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  const [selectedPrice, setSelectedPrice] = useState({
-    min: [0],
-    max: [100],
-  });
 
   // Handle Color Params
-
-  const colorParams = searchParams.get("color");
   const handleColorFilter = (color: string) => {
-    if (selectedColors.includes(color)) {
-      setSelectedColors((prevColors) => prevColors.filter((c) => c !== color));
+    if (store.colors?.includes(color)) {
+      store.colors = produce(store.colors, (draft) => {
+        const index = draft.indexOf(color);
+        if (index !== -1) {
+          draft.splice(index, 1);
+        }
+      });
     } else {
-      setSelectedColors((prevColors) => [...prevColors, color]);
+      store.colors = produce(store.colors, (draft) => {
+        draft.push(color);
+      });
     }
   };
 
   // Handle Price Params
-
   const handlePriceFilter = useCallback(
     debounce(({ min, max }: { min: number[]; max: number[] }) => {
-      setSelectedPrice({ min: min, max: max });
-    }, 10), // Adjust the delay as needed
+      store.price = { min: min, max: max };
+    }, 10),
     []
   );
-
-  // Apply Params
-
-  const priceSortParam = searchParams.get("priceSort");
-  const alphabeticalSortParam = searchParams.get("alphabeticalSort");
-  const categoryParam = searchParams.get("category");
-
-  useEffect(() => {
-    const filterParams: {
-      color?: string;
-      priceSort?: string;
-      alphabeticalSort?: string;
-      priceMin: string;
-      priceMax: string;
-      category?: string;
-    } = {
-      priceMin: String(selectedPrice.min[0]),
-      priceMax: String(selectedPrice.max[0]),
-      category: "kitchen-dining",
-    };
-
-    if (selectedColors.length > 0) {
-      filterParams.color = selectedColors.join(",");
-    }
-
-    if (priceSortParam) {
-      filterParams.priceSort = priceSortParam;
-    }
-
-    if (alphabeticalSortParam) {
-      filterParams.alphabeticalSort = alphabeticalSortParam;
-    }
-
-    if (categoryParam) {
-      filterParams.category = categoryParam;
-    }
-
-    setSearchParams({
-      ...filterParams,
-    });
-  }, [
-    selectedPrice,
-    selectedColors,
-    setSearchParams,
-    searchParams,
-    priceSortParam,
-    alphabeticalSortParam,
-    categoryParam,
-  ]);
 
   return (
     <div className="w-1/4 space-y-16 hidden md:block">
@@ -100,7 +48,7 @@ const ProductsFilter: FC = () => {
                 onClick={() => handleColorFilter(data.color)}
                 key={i}
                 className={cn(
-                  colorParams?.includes(data.color)
+                  colors?.includes(data.color)
                     ? "text-[#333333] font-bold"
                     : "font-normal",
                   "w-1/3"
@@ -119,12 +67,12 @@ const ProductsFilter: FC = () => {
           defaultValue={[0]}
           max={100}
           step={1}
-          value={selectedPrice.min}
+          value={store.price.min}
           onValueChange={(e) => handlePriceFilter({ min: e, max: [100] })}
         />
         <span className="flex justify-between w-full">
-          <Typography variant="p">${selectedPrice.min[0]}</Typography>
-          <Typography variant="p">${selectedPrice.max[0]}</Typography>
+          <Typography variant="p">${store.price.min[0]}</Typography>
+          <Typography variant="p">${store.price.max[0]}</Typography>
         </span>
       </div>
       <div className="border-[#333333] border-2 text-center p-2">

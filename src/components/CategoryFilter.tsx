@@ -4,9 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import { cn } from "../utils/cn";
 import { Typography } from "./Typography";
 import { ProductData } from "../data/ProductData";
+import { store } from "../store/filter";
 
 const CategoryFilter: FC = () => {
-  const [searchParams, setCategory] = useSearchParams("kitchen-dining");
+  const [searchParams] = useSearchParams();
 
   const CategoriesEnum: { [key: string]: string } = {
     "kitchen-dining": "Kitchen & Dining",
@@ -14,19 +15,13 @@ const CategoryFilter: FC = () => {
     cleaning: "Cleaning",
     diy: "DIY",
   };
-  const currentCategory = String(searchParams.get("category"));
+  const currentCategoryParam = String(searchParams.get("category"));
+
   const currentProductsLength = ProductData.filter(
-    (product) => product.category === currentCategory
+    (product) => product.category === currentCategoryParam
   ).length;
 
-  const categoryName = CategoriesEnum[currentCategory];
-
-  const handleCategoryFilter = (tab: string) => {
-    setCategory((prevParams) => ({
-      ...prevParams,
-      category: tab,
-    }));
-  };
+  const categoryName = CategoriesEnum[currentCategoryParam];
 
   return (
     <>
@@ -34,9 +29,9 @@ const CategoryFilter: FC = () => {
         {CategoryData.map((data, i) => (
           <div key={`categoryTab${i}`} className="justify-center w-full flex">
             <button
-              onClick={() => handleCategoryFilter(data.param)}
+              onClick={() => (store.category = data.param)}
               className={cn(
-                currentCategory === data.param
+                currentCategoryParam === data.param
                   ? "text-[#333333] font-semibold"
                   : "text-[#5e7783]",
                 " w-full"
