@@ -6,6 +6,7 @@ import ProductsSort from "../components/ProductsSort";
 import { useSnapshot } from "valtio";
 import { store } from "../store/filter";
 import { useSearchParams } from "react-router-dom";
+import MobileFilter from "../components/MobileFilter";
 
 interface HomeProps {}
 
@@ -63,8 +64,9 @@ const Home: FC<HomeProps> = () => {
       <CategoryFilter />
       <div className="flex mt-16">
         <ProductsSort />
+        <MobileFilter />
       </div>
-      <div className="flex my-8 ">
+      <div className="flex my-8 relative ">
         <ProductsFilter />
         <Products />
       </div>

@@ -7,7 +7,7 @@ interface ProductsSortProps {}
 
 const ProductsSort: FC<ProductsSortProps> = () => {
   return (
-    <div className="flex w-full justify-end">
+    <div className="hidden md:flex w-full justify-end">
       <div className="w-full md:w-3/4 flex space-x-6">
         <Typography variant="p">Sort By</Typography>
         <select
