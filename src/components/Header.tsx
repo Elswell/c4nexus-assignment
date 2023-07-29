@@ -1,11 +1,31 @@
 import { FC } from "react";
-import { NavbarData } from "../data/NavbarData";
 import { Typography } from "./Typography";
 import { Link } from "react-router-dom";
 
-interface HeaderProps {}
+export const NavbarData: { label: string; href: string }[] = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Consingment",
+    href: "/",
+  },
+  {
+    label: "About",
+    href: "/",
+  },
+  {
+    label: "Help",
+    href: "/",
+  },
+  {
+    label: "News",
+    href: "/",
+  },
+];
 
-const Header: FC<HeaderProps> = () => {
+const Header: FC = () => {
   return (
     <>
       <header className="sticky top-0 bg-white py-4 border-b-2 border-[#333333] z-50">

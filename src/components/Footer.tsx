@@ -1,12 +1,104 @@
 import { FC } from "react";
+import { cn } from "../utils/cn";
+import { Facebook, Instagram, Twitter } from "lucide-react";
 
-interface FooterProps {}
+export const FooterData: {
+  title?: string;
+  list: { label: string; href: string }[];
+}[] = [
+  {
+    title: "SHOP",
+    list: [
+      {
+        label: "Kitchen & Dining",
+        href: "/",
+      },
+      {
+        label: "Home Decor",
+        href: "/",
+      },
+      {
+        label: "Cleaning",
+        href: "/",
+      },
+      {
+        label: "DIY",
+        href: "/",
+      },
+    ],
+  },
+  {
+    title: "SERVICES",
+    list: [
+      {
+        label: "Return & Exchange",
+        href: "/",
+      },
+      {
+        label: "Shippinbg Info",
+        href: "/",
+      },
+      {
+        label: "Order Tracking",
+        href: "/",
+      },
+      {
+        label: "Contact Us",
+        href: "/",
+      },
+    ],
+  },
+  {
+    title: "LEGAL",
+    list: [
+      {
+        label: "Terms of Use",
+        href: "/",
+      },
+      {
+        label: "Legal Notices",
+        href: "/",
+      },
+      {
+        label: "Privacy Policy",
+        href: "/",
+      },
+      {
+        label: "Store Locations",
+        href: "/",
+      },
+    ],
+  },
+];
 
-const Footer: FC<FooterProps> = () => {
+const Footer: FC = () => {
   return (
     <>
-      <footer className="bg-slate-200 h-[30vh] w-full ">
-        <div className="container">Footer TODO</div>
+      <footer className="bg-white border-t-2 border-t-[#333333] h-[30vh] w-full ">
+        <div className="container flex flex-col py-16 space-y-16">
+          <div className="flex items-center space-x-8 justify-center w-full">
+            <Facebook className="cursor-pointer" />
+            <Twitter className="cursor-pointer" />
+            <Instagram className="cursor-pointer" />
+          </div>
+          <div className="flex flex-col items-center text-center space-y-16 md:space-y-0 md:flex-row md:space-x-16 justify-center ">
+            {FooterData.map((data, i) => (
+              <ul key={`list${i}`} className="flex flex-col space-y-2">
+                {data.title !== "LEGAL" && (
+                  <li className="font-semibold">{data.title}</li>
+                )}
+                {data.list.map((link, i) => (
+                  <li
+                    key={`link${i}`}
+                    className={cn(data.title === "LEGAL" && "font-semibold")}
+                  >
+                    {link.label}
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
       </footer>
     </>
   );
